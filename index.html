@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>For Elizabeth 💖</title>
+    <title>For Chidinma 💖</title>
+
     <style>
         body {
             height: 100vh;
@@ -13,44 +14,108 @@
             background: linear-gradient(135deg, #ff9a9e, #fad0c4);
             font-family: 'Comic Sans MS', cursive, sans-serif;
             overflow: hidden;
+            animation: fadeIn 1.2s ease-in-out;
         }
 
         .container {
             text-align: center;
             background: white;
-            padding: 30px;
+            padding: 30px 40px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+            animation: popIn 1s ease;
         }
 
         h1 {
             color: #ff4d6d;
+            animation: float 2.5s ease-in-out infinite;
         }
 
         button {
             font-size: 18px;
-            padding: 10px 20px;
+            padding: 12px 22px;
             margin: 15px;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        button:hover {
+            transform: scale(1.1);
         }
 
         #yes {
             background-color: #ff4d6d;
             color: white;
+            animation: pulse 1.8s infinite;
         }
 
         #no {
             background-color: #ccc;
             position: absolute;
         }
+
+        .final {
+            font-size: 36px;
+            color: #ff4d6d;
+            animation: bounceGlow 1.2s ease infinite;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.6); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+
+        @keyframes bounceGlow {
+            0%, 100% {
+                transform: scale(1);
+                text-shadow: 0 0 10px #ffb3c1;
+            }
+            50% {
+                transform: scale(1.1);
+                text-shadow: 0 0 25px #ff4d6d;
+            }
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
+
 <body>
 
 <div class="container" id="box">
-    <h1>Elizabeth, will you be my Valentine? 💖</h1>
+    <h1>Chidinma, will you be my Valentine? 💖</h1>
 
     <button id="yes">YES!!! 😍💘</button>
     <button id="no">No 😒</button>
@@ -62,20 +127,28 @@
     const box = document.getElementById("box");
 
     noBtn.addEventListener("mouseover", () => {
-        const x = Math.random() * (window.innerWidth - 100);
-        const y = Math.random() * (window.innerHeight - 100);
-        noBtn.style.left = x + "px";
-        noBtn.style.top = y + "px";
+        noBtn.style.animation = "shake 0.3s";
+        setTimeout(() => {
+            noBtn.style.animation = "";
+            const x = Math.random() * (window.innerWidth - 120);
+            const y = Math.random() * (window.innerHeight - 120);
+            noBtn.style.left = x + "px";
+            noBtn.style.top = y + "px";
+        }, 300);
     });
 
     yesBtn.addEventListener("click", () => {
-        box.innerHTML = `<h1>come say no make I see na 😂, thank you baby❤️🥹</h1>
-`;
+        box.innerHTML = `
+            <div class="final">
+                come say no make I see na 😂,<br>
+                thank you baby❤️🥹
+            </div>
+        `;
         launchHearts();
     });
 
     function launchHearts() {
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < 35; i++) {
             const heart = document.createElement("div");
             heart.innerHTML = "💖";
             heart.style.position = "fixed";
@@ -84,20 +157,10 @@
             heart.style.fontSize = Math.random() * 20 + 20 + "px";
             heart.style.animation = "fall 3s linear";
             document.body.appendChild(heart);
-
             setTimeout(() => heart.remove(), 3000);
         }
     }
 </script>
-
-<style>
-@keyframes fall {
-    to {
-        transform: translateY(110vh);
-        opacity: 0;
-    }
-}
-</style>
 
 </body>
 </html>
